@@ -37,10 +37,10 @@ public class TradeMenuHandler implements MenuHandler
                     return;
                 case "1":
                     MonitoringMain.selectedMenu = SelectedMenu.TradeBuy;
-                    break;
+                    return;
                 case "2":
                     MonitoringMain.selectedMenu = SelectedMenu.TradeSell;
-                    break;
+                    return;
                 default:
                     System.out.println("잘못된 입력입니다.");
                     break;

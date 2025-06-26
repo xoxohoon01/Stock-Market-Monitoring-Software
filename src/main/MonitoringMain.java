@@ -41,39 +41,5 @@ public class MonitoringMain
             router.route(selectedMenu);
         }
     }
-
-    private static void showMyPage(MarketSimulator marketSimulator)
-    {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true)
-        {
-            MessageBox.showMenuMessage();
-
-            int menuSelector;
-            try
-            {
-                menuSelector = Integer.parseInt(scanner.nextLine());
-            }
-            catch (NumberFormatException e)
-            {
-                System.out.println("숫자를 입력해주세요.");
-                continue;
-            }
-
-            switch (menuSelector)
-            {
-                case 0:
-                    selectedMenu = SelectedMenu.MainMenu;
-                    return;
-                case 1:
-                    MessageBox.showAccount(marketSimulator);
-                    break;
-                default:
-                    System.out.println("잘못된 입력입니다.");
-                    break;
-            }
-        }
-    }
 }
 

@@ -11,19 +11,40 @@ import java.util.*;
 public class MarketSimulator
 {
     public final List<Stock> marketData;
-    private final Random random;
     public boolean isOpenned;
+
+    private final Random random;
+    private boolean isWaitForMessage = false;
 
     // 시장 개장 및 폐장
     public void openMarket()
     {
         isOpenned = true;
+
         System.out.print("\n주식 시장이 개장되었습니다.\n");
 
-        MessageBox.showMenuMessage();
+        if (random.nextDouble() <= 0.3)
+        {
+            createNewStock();
+        }
+
+        List<Stock> deleteStockList = new ArrayList<>();
+        for (Stock stock : marketData)
+        {
+            if (stock.getPrice() <= stock.getPrimePrice() * 0.2)
+            {
+                deleteStockList.add(stock);
+            }
+        }
+        deleteStock(deleteStockList);
+
+        if (isWaitForMessage)
+        {
+            MessageBox.showMenuMessage();
+        }
 
         run();
-
+        isWaitForMessage = true;
     }
     public void closeMarket()
     {
@@ -38,14 +59,53 @@ public class MarketSimulator
     public void createNewStock()
     {
         System.out.println("신규 상장");
+        List<String> stockNameList = List.of(
+                "삼성",
+                "카카오",
+                "대전대",
+                "메가커피",
+                "로지텍",
+                "LG전자",
+                "태훈 주식회사"
+        );
 
-        MessageBox.showMenuMessage();
+        // 현재 상장된 종목 이름 목록 추출
+        Set<String> listedNames = new HashSet<>();
+        for (Stock stock : marketData)
+        {
+            listedNames.add(stock.getName());
+        }
+
+        // 아직 상장되지 않은 종목만 필터링
+        List<String> candidates = stockNameList.stream()
+                .filter(name -> !listedNames.contains(name))
+                .toList();
+
+        // stockNameList에 모든 이름이 사용중일 때는 신규 상장 안 함.
+        if (candidates.isEmpty()) {
+            return;
+        }
+
+        // 랜덤하게 하나 선택
+        String selectedName = candidates.get(random.nextInt(candidates.size()));
+
+        // 랜덤 초기 가격 설정 (예: 5000 ~ 15000원)
+        double initialPrice = 5000 + random.nextInt(10001); // 5000 ~ 15000
+        Stock newStock = new Stock(selectedName, initialPrice);
+        marketData.add(newStock);
+
+        System.out.printf("✅ [%s] 종목이 %.2f원으로 신규 상장되었습니다!\n", selectedName, initialPrice);
     }
-    public void deleteNewStock()
-    {
-        System.out.println("상장 폐지");
 
-        MessageBox.showMenuMessage();
+    public void deleteStock(List<Stock> deleteStockList)
+    {
+        for (Stock stock : deleteStockList)
+        {
+            System.out.printf("\n%s이(가) 상장 폐지되었습니다.\n", stock.getName());
+            MonitoringMain.user.stockData.remove(stock);
+        }
+
+        marketData.removeAll(deleteStockList);
     }
 
     // 시뮬레이션 시작
