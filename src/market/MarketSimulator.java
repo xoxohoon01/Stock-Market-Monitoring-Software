@@ -2,7 +2,7 @@ package market;
 
 import model.Holding;
 import model.Stock;
-import monitor.MonitoringMain;
+import main.MonitoringMain;
 import strategy.Reservation;
 import system.MessageBox;
 

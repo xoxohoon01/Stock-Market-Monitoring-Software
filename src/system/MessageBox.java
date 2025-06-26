@@ -3,13 +3,12 @@ package system;
 import market.MarketSimulator;
 import model.Holding;
 import model.Stock;
-import monitor.MonitoringMain;
-import monitor.SelectedMenu;
+import main.MonitoringMain;
+import main.SelectedMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class MessageBox
 {
@@ -39,11 +38,9 @@ public class MessageBox
                 break;
             case SelectedMenu.TradeBuy:
                 if (currentPage == -1) currentPage = 0;
-                showBuyPage(MonitoringMain.marketSimulator, currentPage);
                 break;
             case SelectedMenu.TradeSell:
                 if (currentPage == -1) currentPage = 0;
-                showSellPage(MonitoringMain.marketSimulator, currentPage);
                 break;
             case SelectedMenu.BookingMainMenu:
                 System.out.println("\n명령을 입력하세요.");
@@ -67,7 +64,6 @@ public class MessageBox
                 System.out.println("\n명령을 입력하세요.");
                 System.out.println("0. 뒤로가기");
                 System.out.println("1. 보유 자산");
-                System.out.println("2. 분석");
                 System.out.print("> ");
                 break;
             default:
@@ -86,78 +82,5 @@ public class MessageBox
         }
         System.out.printf("\n보유금액: %f원\n", MonitoringMain.user.deposit);
     }
-
-    public static void showBuyPage(MarketSimulator marketSimulator, int page)
-    {
-        currentPage = page;
-        final int PAGE_SIZE = 6;
-        List<Stock> marketData = marketSimulator.getMarketData();
-        int totalStocks = marketData.size();
-        int totalPages = (int) Math.ceil((double) totalStocks / PAGE_SIZE);
-
-        if (page < 1 || page > totalPages)
-        {
-            System.out.println("잘못된 페이지 번호입니다. (1 ~ " + totalPages + ")");
-            currentPage = -1;
-            return;
-        }
-
-        int startIndex = (page - 1) * PAGE_SIZE;
-        int endIndex = Math.min(startIndex + PAGE_SIZE, totalStocks);
-
-        System.out.println("\n📃 현재 상장된 주식 목록 (" + page + "/" + totalPages + ")");
-        for (int i = startIndex; i < endIndex; i++)
-        {
-            Stock stock = marketData.get(i);
-            int displayNumber = i - startIndex + 1; // 1~6
-            System.out.printf("%d. %s | 가격: %.2f원\n", displayNumber, stock.getName(), stock.getPrice());
-        }
-
-        System.out.println("\n0. 뒤로가기");
-        System.out.println("8. 이전 페이지 | 9. 다음 페이지");
-        System.out.println("1~6: 해당 번호 주식 선택");
-        System.out.print("> ");
-    }
-
-    public static void showSellPage(MarketSimulator marketSimulator, int page)
-    {
-        currentPage = page;
-        final int PAGE_SIZE = 6;
-        List<Map.Entry<Stock, Holding>> holdings = new ArrayList<>(MonitoringMain.user.stockData.entrySet());
-        int totalHoldings = holdings.size();
-        int totalPages = (int) Math.ceil((double) totalHoldings / PAGE_SIZE);
-
-        if (totalHoldings == 0) {
-            System.out.println("\n보유한 주식이 없습니다.");
-            System.out.println("0. 뒤로가기");
-            System.out.print("> ");
-            return;
-        }
-
-        if (page < 1 || page > totalPages) {
-            System.out.println("잘못된 페이지입니다.");
-            currentPage = -1;
-            return;
-        }
-
-        int startIndex = (page - 1) * PAGE_SIZE;
-        int endIndex = Math.min(startIndex + PAGE_SIZE, totalHoldings);
-
-        System.out.println("\n보유 주식 목록 (" + page + "/" + totalPages + ")");
-        for (int i = startIndex; i < endIndex; i++) {
-            Stock stock = holdings.get(i).getKey();
-            Holding holding = holdings.get(i).getValue();
-            System.out.printf("%d. %s | 수량: %d | 평균 매수가: %.2f | 현재가: %.2f\n",
-                    i - startIndex + 1, stock.getName(), holding.getQuantity(),
-                    holding.getAveragePrice(), stock.getPrice());
-        }
-
-        System.out.println("\n선택: 1 ~ " + (endIndex - startIndex));
-        if (page > 1) System.out.println("8. 이전 페이지");
-        if (page < totalPages) System.out.println("9. 다음 페이지");
-        System.out.println("0. 뒤로가기");
-        System.out.print("> ");
-    }
-
 
 }
