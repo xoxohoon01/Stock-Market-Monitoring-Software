@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import system.MessageBox;
@@ -32,7 +32,7 @@ public class MyPageMenuHandler implements MenuHandler
             switch (command)
             {
                 case "0":
-                    MonitoringMain.selectedMenu = SelectedMenu.MainMenu;
+                    Main.selectedMenu = SelectedMenu.MainMenu;
                     return;
                 case "1":
                     MessageBox.showAccount(simulator);

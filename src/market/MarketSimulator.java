@@ -2,7 +2,7 @@ package market;
 
 import model.Holding;
 import model.Stock;
-import main.MonitoringMain;
+import main.Main;
 import strategy.Reservation;
 import system.MessageBox;
 
@@ -102,7 +102,7 @@ public class MarketSimulator
         for (Stock stock : deleteStockList)
         {
             System.out.printf("\n%s이(가) 상장 폐지되었습니다.\n", stock.getName());
-            MonitoringMain.user.stockData.remove(stock);
+            Main.user.stockData.remove(stock);
         }
 
         marketData.removeAll(deleteStockList);
@@ -165,14 +165,14 @@ public class MarketSimulator
         }
 
         double totalCost = stock.getPrice() * quantity;
-        if (MonitoringMain.user.deposit < totalCost) {
+        if (Main.user.deposit < totalCost) {
             System.out.println("잔액이 부족합니다.");
             return false;
         }
 
         // 구매 처리
-        MonitoringMain.user.deposit -= totalCost;
-        MonitoringMain.user.stockData.compute(stock, (k, v) -> {
+        Main.user.deposit -= totalCost;
+        Main.user.stockData.compute(stock, (k, v) -> {
             if (v == null) {
                 return new Holding(quantity, stock.getPrice());
             } else {
@@ -193,7 +193,7 @@ public class MarketSimulator
     // 판매
     public boolean sellStock(Stock stock, int quantity)
     {
-        Holding holding = MonitoringMain.user.stockData.get(stock);
+        Holding holding = Main.user.stockData.get(stock);
 
         if (holding == null || holding.getQuantity() < quantity) {
             System.out.println("보유 수량이 부족합니다.");
@@ -205,11 +205,11 @@ public class MarketSimulator
 
         // 예치금 증가
         double totalAmount = stock.getPrice() * quantity;
-        MonitoringMain.user.deposit += totalAmount;
+        Main.user.deposit += totalAmount;
 
         // 수량이 0이면 제거
         if (holding.getQuantity() == 0) {
-            MonitoringMain.user.stockData.remove(stock);
+            Main.user.stockData.remove(stock);
         }
 
         System.out.printf("%s 주식 %d주를 매도하였습니다. (총액: %.2f원)\n", stock.getName(), quantity, totalAmount);
@@ -218,7 +218,7 @@ public class MarketSimulator
 
     // 예약 대기
     private void checkReservations() {
-        Iterator<Reservation> iter = MonitoringMain.user.reservations.iterator();
+        Iterator<Reservation> iter = Main.user.reservations.iterator();
 
         while (iter.hasNext()) {
             Reservation r = iter.next();

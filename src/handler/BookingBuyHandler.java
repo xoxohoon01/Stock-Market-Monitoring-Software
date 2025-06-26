@@ -2,12 +2,11 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import model.Stock;
 import strategy.Reservation;
-import system.MessageBox;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class BookingBuyHandler implements MenuHandler
         System.out.print("> ");
         int select = Integer.parseInt(input.readLine().trim());
         if (select == 0) {
-            MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+            Main.selectedMenu = SelectedMenu.BookingMainMenu;
             return;
         }
 
@@ -55,7 +54,7 @@ public class BookingBuyHandler implements MenuHandler
         double targetPrice = Double.parseDouble(input.readLine().trim());
 
         Reservation reservation = new Reservation(Reservation.Type.BUY, selectedStock, targetPrice, quantity);
-        MonitoringMain.user.reservations.add(reservation);
+        Main.user.reservations.add(reservation);
         System.out.println("✅ 매수 예약이 등록되었습니다.");
     }
 }

@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import system.MessageBox;
@@ -62,6 +62,6 @@ public class MonitoringHandler implements MenuHandler
         monitorThread.interrupt();
         monitorThread.join(); // 쓰레드 종료 대기
 
-        MonitoringMain.selectedMenu = SelectedMenu.MainMenu;
+        Main.selectedMenu = SelectedMenu.MainMenu;
     }
 }

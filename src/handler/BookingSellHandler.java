@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import model.Holding;
@@ -28,12 +28,12 @@ public class BookingSellHandler implements MenuHandler
     @Override
     public void handle() throws Exception
     {
-        List<Map.Entry<Stock, Holding>> holdings = MonitoringMain.user.stockData.entrySet()
+        List<Map.Entry<Stock, Holding>> holdings = Main.user.stockData.entrySet()
                 .stream().filter(e -> e.getValue().getQuantity() > 0).toList();
 
         if (holdings.isEmpty()) {
             System.out.print("\n보유한 주식이 없습니다.\n");
-            MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+            Main.selectedMenu = SelectedMenu.BookingMainMenu;
             return;
         }
 
@@ -46,7 +46,7 @@ public class BookingSellHandler implements MenuHandler
         System.out.print("> ");
         int select = Integer.parseInt(input.readLine().trim());
         if (select == 0) {
-            MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+            Main.selectedMenu = SelectedMenu.BookingMainMenu;
             return;
         }
 
@@ -64,7 +64,7 @@ public class BookingSellHandler implements MenuHandler
         double targetPrice = Double.parseDouble(input.readLine().trim());
 
         Reservation reservation = new Reservation(Reservation.Type.SELL, selectedStock, targetPrice, quantity);
-        MonitoringMain.user.reservations.add(reservation);
+        Main.user.reservations.add(reservation);
         System.out.println("✅ 매도 예약이 등록되었습니다.");
     }
 }

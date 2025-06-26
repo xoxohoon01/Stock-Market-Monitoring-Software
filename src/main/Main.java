@@ -6,18 +6,9 @@ import io.JavaConsoleInputProvider;
 import io.JavaConsoleOutputRenderer;
 import io.OutputRenderer;
 import market.MarketSimulator;
-import model.Holding;
-import model.Stock;
-import strategy.Reservation;
-import system.MessageBox;
 import user.UserData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-public class MonitoringMain
+public class Main
 {
     public static MarketSimulator marketSimulator = new MarketSimulator();
     public static UserData user = new UserData();

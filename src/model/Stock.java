@@ -22,10 +22,7 @@ public class Stock
         return name;
     }
 
-    public double getPrice()
-    {
-        return price;
-    }
+    public double getPrice() { return price; }
     public double getPrimePrice() { return primePrice; }
 
     public void setPrice(double price)

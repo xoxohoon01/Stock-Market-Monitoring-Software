@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import system.MessageBox;
@@ -33,13 +33,13 @@ public class TradeMenuHandler implements MenuHandler
             switch (command)
             {
                 case "0":
-                    MonitoringMain.selectedMenu = SelectedMenu.MainMenu;
+                    Main.selectedMenu = SelectedMenu.MainMenu;
                     return;
                 case "1":
-                    MonitoringMain.selectedMenu = SelectedMenu.TradeBuy;
+                    Main.selectedMenu = SelectedMenu.TradeBuy;
                     return;
                 case "2":
-                    MonitoringMain.selectedMenu = SelectedMenu.TradeSell;
+                    Main.selectedMenu = SelectedMenu.TradeSell;
                     return;
                 default:
                     System.out.println("잘못된 입력입니다.");

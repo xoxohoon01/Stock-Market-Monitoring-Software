@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import system.MessageBox;
@@ -30,16 +30,16 @@ public class BookingMenuHandler implements MenuHandler
         switch (command)
         {
             case "0":
-                MonitoringMain.selectedMenu = SelectedMenu.MainMenu;
+                Main.selectedMenu = SelectedMenu.MainMenu;
                 return;
             case "1":
-                MonitoringMain.selectedMenu = SelectedMenu.BookingBuy;
+                Main.selectedMenu = SelectedMenu.BookingBuy;
                 break;
             case "2":
-                MonitoringMain.selectedMenu = SelectedMenu.BookingSell;
+                Main.selectedMenu = SelectedMenu.BookingSell;
                 break;
             case "3":
-                MonitoringMain.selectedMenu = SelectedMenu.BookingList;
+                Main.selectedMenu = SelectedMenu.BookingList;
                 break;
             default:
                 System.out.println("잘못된 입력입니다.");

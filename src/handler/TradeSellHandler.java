@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import model.Holding;
@@ -35,7 +35,7 @@ public class TradeSellHandler implements MenuHandler
         while (true)
         {
             // 보유중인 주식 로드
-            List<Map.Entry<Stock, Holding>> holdings = new ArrayList<>(MonitoringMain.user.stockData.entrySet());
+            List<Map.Entry<Stock, Holding>> holdings = new ArrayList<>(Main.user.stockData.entrySet());
             int totalPages = (int) Math.ceil((double) holdings.size() / PAGE_SIZE);
 
             showSellPage(simulator, currentPage);
@@ -44,7 +44,7 @@ public class TradeSellHandler implements MenuHandler
             switch (command)
             {
                 case "0":
-                    MonitoringMain.selectedMenu = SelectedMenu.TradeMainMenu;
+                    Main.selectedMenu = SelectedMenu.TradeMainMenu;
                     MessageBox.currentPage = -1;
                     return;
                 case "8":
@@ -94,7 +94,7 @@ public class TradeSellHandler implements MenuHandler
     public static void showSellPage(MarketSimulator marketSimulator, int page)
     {
         final int PAGE_SIZE = 6;
-        List<Map.Entry<Stock, Holding>> holdings = new ArrayList<>(MonitoringMain.user.stockData.entrySet());
+        List<Map.Entry<Stock, Holding>> holdings = new ArrayList<>(Main.user.stockData.entrySet());
         int totalHoldings = holdings.size();
         int totalPages = (int) Math.ceil((double) totalHoldings / PAGE_SIZE);
 
@@ -102,7 +102,7 @@ public class TradeSellHandler implements MenuHandler
             System.out.println("\n보유한 주식이 없습니다.");
             System.out.println("0. 뒤로가기");
             System.out.print("> ");
-            MonitoringMain.selectedMenu = SelectedMenu.TradeMainMenu;
+            Main.selectedMenu = SelectedMenu.TradeMainMenu;
             return;
         }
 

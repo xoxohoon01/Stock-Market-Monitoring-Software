@@ -2,11 +2,10 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import model.Stock;
-import system.MessageBox;
 
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class TradeBuyHandler implements MenuHandler {
             String command = input.readLine().trim();
 
             if (command.equals("0")) {
-                MonitoringMain.selectedMenu = SelectedMenu.TradeMainMenu;
+                Main.selectedMenu = SelectedMenu.TradeMainMenu;
                 return;
             }
 

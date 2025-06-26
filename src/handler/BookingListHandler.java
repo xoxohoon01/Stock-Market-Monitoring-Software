@@ -2,14 +2,12 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
-import model.Stock;
 import strategy.Reservation;
 
 import java.util.List;
-import java.util.Locale;
 
 public class BookingListHandler implements MenuHandler
 {
@@ -27,11 +25,11 @@ public class BookingListHandler implements MenuHandler
     @Override
     public void handle() throws Exception
     {
-        List<Reservation> reservations = MonitoringMain.user.reservations;
+        List<Reservation> reservations = Main.user.reservations;
 
         if (reservations.isEmpty()) {
             System.out.println("\n📭 현재 등록된 예약이 없습니다.");
-            MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+            Main.selectedMenu = SelectedMenu.BookingMainMenu;
             return;
         }
 
@@ -53,7 +51,7 @@ public class BookingListHandler implements MenuHandler
             String command = input.readLine().trim();
 
             if (command.equals("0")) {
-                MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+                Main.selectedMenu = SelectedMenu.BookingMainMenu;
                 return;
             }
 
@@ -65,7 +63,7 @@ public class BookingListHandler implements MenuHandler
                     Reservation removed = reservations.remove(index);
                     System.out.printf("✅ [%s] %s 예약이 취소되었습니다.\n",
                             removed.getType(), removed.getStock().getName());
-                    MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+                    Main.selectedMenu = SelectedMenu.BookingMainMenu;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력해주세요.");

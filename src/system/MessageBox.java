@@ -3,11 +3,9 @@ package system;
 import market.MarketSimulator;
 import model.Holding;
 import model.Stock;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class MessageBox
@@ -15,7 +13,7 @@ public class MessageBox
     public static int currentPage = -1; // 페이지 선택 화면 이용 시 기본 페이지, -1일 경우 첫번째 페이지부터 시작하도록 설계할 것
     public static void showMenuMessage()
     {
-        switch (MonitoringMain.selectedMenu)
+        switch (Main.selectedMenu)
         {
             case SelectedMenu.MainMenu:
                 System.out.println("\n명령을 입력하세요.");
@@ -73,14 +71,14 @@ public class MessageBox
 
     public static void showAccount(MarketSimulator marketSimulator)
     {
-        for (Map.Entry<Stock, Holding> entry : MonitoringMain.user.stockData.entrySet())
+        for (Map.Entry<Stock, Holding> entry : Main.user.stockData.entrySet())
         {
             Stock stock = entry.getKey();
             Holding holding = entry.getValue();
 
             System.out.printf("\n[%s]\n현재 가격: %f원\n보유 수량: %d주\n평균 매수가: %f원\n", stock.getName(), stock.getPrice(), holding.getQuantity(), holding.getAveragePrice());
         }
-        System.out.printf("\n보유금액: %f원\n", MonitoringMain.user.deposit);
+        System.out.printf("\n보유금액: %f원\n", Main.user.deposit);
     }
 
 }

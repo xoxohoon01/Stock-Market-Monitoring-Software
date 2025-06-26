@@ -2,7 +2,7 @@ package handler;
 
 import io.InputProvider;
 import io.OutputRenderer;
-import main.MonitoringMain;
+import main.Main;
 import main.SelectedMenu;
 import market.MarketSimulator;
 import system.MessageBox;
@@ -34,16 +34,16 @@ public class MainMenuHandler implements MenuHandler
                 System.exit(0);
                 break;
             case "1":
-                MonitoringMain.selectedMenu = SelectedMenu.Monitoring;
+                Main.selectedMenu = SelectedMenu.Monitoring;
                 break;
             case "2":
-                MonitoringMain.selectedMenu = SelectedMenu.TradeMainMenu;
+                Main.selectedMenu = SelectedMenu.TradeMainMenu;
                 break;
             case "3":
-                MonitoringMain.selectedMenu = SelectedMenu.BookingMainMenu;
+                Main.selectedMenu = SelectedMenu.BookingMainMenu;
                 break;
             case "4":
-                MonitoringMain.selectedMenu = SelectedMenu.MyPage;
+                Main.selectedMenu = SelectedMenu.MyPage;
                 break;
             default:
                 System.out.println("잘못된 입력입니다.");
